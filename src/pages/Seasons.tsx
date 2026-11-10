@@ -139,12 +139,17 @@ export function SeasonsPage() {
         />
       ) : (
         <div className="grid gap-4">
-          {seasons.map((season) => {
+          {seasons.map((season, index) => {
             const farm = farmById(data, season.farmId);
             const status = seasonStatus(data, season);
             const progress = seasonProgress(data, season);
             return (
-              <article key={season.id} className="rounded-2xl border border-white/80 bg-white/60 p-5 shadow-card backdrop-blur-lg">
+              <article
+                key={season.id}
+                className={`rounded-2xl border border-[#c5d8c5] p-5 shadow-card transition-colors hover:bg-[#c4dfc4] ${
+                  index % 2 === 0 ? "bg-white" : "bg-[#dcebdd]"
+                }`}
+              >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -156,12 +161,12 @@ export function SeasonsPage() {
                       {farm?.name ?? "Unknown farm"} · {farm?.crop} · {farm?.location}
                     </p>
                   </div>
-                  <div className="flex gap-1">
-                    <Button variant="ghost" onClick={() => openEdit(season)}>
+                  <div className="flex shrink-0 gap-2">
+                    <Button variant="secondary" className="min-h-9 px-3 text-xs" onClick={() => openEdit(season)}>
                       <Pencil className="h-4 w-4" />
                       Edit
                     </Button>
-                    <Button variant="ghost" onClick={() => setPendingDelete(season)}>
+                    <Button variant="danger" className="min-h-9 px-3 text-xs" onClick={() => setPendingDelete(season)}>
                       <Trash2 className="h-4 w-4" />
                       Delete
                     </Button>

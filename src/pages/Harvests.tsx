@@ -5,11 +5,13 @@ import {
   Button,
   Card,
   ConfirmDialog,
+  DataTable,
   EmptyState,
   Modal,
   PageHeader,
   SampleBadge,
   SelectField,
+  TableLabel,
   TextField,
 } from "../components";
 import { CROPS, cropPerformance, farmById, formatDate, formatNumber, seasonById, totalHarvestKg, uid, yieldKgHa } from "../model";
@@ -202,44 +204,42 @@ export function HarvestsPage() {
           body="Choose another farm, or record a harvest for the one selected."
         />
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-forest-950/[0.08]">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-left text-sm">
-              <thead className="bg-forest-900 text-[10px] uppercase tracking-[0.14em] text-white/75">
+        <DataTable className="min-w-[760px]">
+              <thead>
                 <tr>
                   <th className="px-5 py-4 font-semibold">Date</th>
                   <th className="px-5 py-4 font-semibold">Farm</th>
                   <th className="px-5 py-4 font-semibold">Crop</th>
                   <th className="px-5 py-4 text-right font-semibold">Quantity</th>
                   <th className="px-5 py-4 text-right font-semibold">Yield</th>
-                  <th className="px-5 py-4 text-right font-semibold">Actions</th>
+                  <th className="px-5 py-4 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
-                {records.map((harvest, index) => {
+              <tbody>
+                {records.map((harvest) => {
                   const farm = farmById(data, harvest.farmId);
                   const season = seasonById(data, harvest.seasonId);
                   const perHa = yieldKgHa(data, harvest);
                   return (
-                    <tr key={harvest.id} className={`group transition-colors hover:bg-fresh-50/70 ${index % 2 ? "bg-slate-50/70" : "bg-white"}`}>
-                      <td className="whitespace-nowrap px-5 py-4 text-[13px] font-medium tabular-nums text-slate-600">{formatDate(harvest.date)}</td>
+                    <tr key={harvest.id}>
+                      <td className="whitespace-nowrap px-5 py-4"><TableLabel>{formatDate(harvest.date)}</TableLabel></td>
                       <td className="px-5 py-4">
                         <div className="flex flex-wrap items-center gap-2 text-[13px] font-semibold text-forest-950">
-                          <span>{farm?.name ?? "Unknown farm"}</span>
+                          <TableLabel className="eza-table-label--strong">{farm?.name ?? "Unknown farm"}</TableLabel>
                           {harvest.sample ? <SampleBadge /> : null}
                         </div>
-                        <div className="mt-1 text-xs text-slate-500">{season ? season.name : "Not linked to a season"}</div>
+                        <div className="mt-1"><TableLabel>{season ? season.name : "Not linked to a season"}</TableLabel></div>
                       </td>
-                      <td className="px-5 py-4"><span className="inline-flex rounded-full bg-fresh-50 px-3 py-1 text-xs font-semibold text-forest-800">{harvest.crop}</span></td>
-                      <td className="whitespace-nowrap px-5 py-4 text-right text-[13px] font-semibold tabular-nums text-forest-950">{formatNumber(harvest.quantityKg)} kg</td>
-                      <td className="whitespace-nowrap px-5 py-4 text-right text-[13px] font-medium tabular-nums text-slate-600">{perHa === null ? "—" : `${formatNumber(perHa)} kg/ha`}</td>
+                      <td className="px-5 py-4"><TableLabel className="eza-table-label--strong">{harvest.crop}</TableLabel></td>
+                      <td className="whitespace-nowrap px-5 py-4 text-right"><TableLabel>{formatNumber(harvest.quantityKg)} kg</TableLabel></td>
+                      <td className="whitespace-nowrap px-5 py-4 text-right"><TableLabel>{perHa === null ? "—" : `${formatNumber(perHa)} kg/ha`}</TableLabel></td>
                       <td className="px-5 py-4">
-                        <div className="flex justify-end gap-1">
-                          <Button variant="ghost" onClick={() => openEdit(harvest)}>
+                        <div className="flex w-max items-center gap-2">
+                          <Button variant="secondary" className="min-h-9 px-3 text-xs" onClick={() => openEdit(harvest)}>
                             <Pencil className="h-4 w-4" />
                             Edit
                           </Button>
-                          <Button variant="ghost" onClick={() => setPendingDelete(harvest)}>
+                          <Button variant="danger" className="min-h-9 px-3 text-xs" onClick={() => setPendingDelete(harvest)}>
                             <Trash2 className="h-4 w-4" />
                             Delete
                           </Button>
@@ -249,9 +249,7 @@ export function HarvestsPage() {
                   );
                 })}
               </tbody>
-            </table>
-          </div>
-        </div>
+        </DataTable>
       )}
 
       <Modal open={creating} title={editing ? "Edit harvest" : "Record a harvest"} onClose={() => setCreating(false)}>

@@ -20,7 +20,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition duration-200 hover:-translate-y-px hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-fresh-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-sm ${styles} ${className}`}
+      className={`inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-fresh-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-sm ${styles} ${className}`}
       {...props}
     >
       {children}
@@ -116,7 +116,7 @@ export function ConfirmDialog({
 }
 
 const fieldClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-ink shadow-sm shadow-slate-900/[0.02] outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-forest-600 focus:ring-4 focus:ring-fresh-500/10";
+  "min-h-11 w-full rounded-lg border border-border bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-muted hover:border-slate-300 focus:border-forest-600 focus:ring-4 focus:ring-fresh-500/10";
 
 export function TextField({
   label,
@@ -173,11 +173,11 @@ export function PageHeader({
   action?: ReactNode;
 }) {
   return (
-    <div className="mb-6 flex flex-col gap-4 rounded-3xl border border-white/15 bg-forest-900/80 px-5 py-5 text-white shadow-lg shadow-forest-950/10 backdrop-blur-md sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
+    <div className="mb-6 flex flex-col gap-4 rounded-2xl border border-forest-800 bg-forest-900 px-5 py-5 text-white shadow-card sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
       <div>
-      <p className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-fresh-300">EZA workspace</p>
-      <h1 className="text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">{title}</h1>
-      <p className="mt-2 max-w-2xl text-sm leading-6 text-white/75">{description}</p>
+        <p className="mb-1.5 text-xs font-semibold tracking-wide text-fresh-300">EZA workspace</p>
+        <h1 className="text-[28px] font-bold leading-tight tracking-tight text-white sm:text-[32px]">{title}</h1>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-white/75">{description}</p>
       </div>
       {action}
     </div>
@@ -196,7 +196,7 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="rounded-[1.75rem] border border-dashed border-white/80 bg-white/70 px-6 py-16 text-center shadow-sm backdrop-blur-lg">
+    <div className="rounded-2xl border border-border bg-white px-6 py-14 text-center shadow-card">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-fresh-50 text-forest-700 ring-8 ring-fresh-50/60">
         {icon}
       </div>
@@ -217,7 +217,21 @@ export function SampleBadge() {
 }
 
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`eza-card rounded-2xl border border-white/80 bg-white/70 p-5 shadow-card backdrop-blur-lg sm:p-6 ${className}`}>{children}</section>;
+  return <section className={`eza-card rounded-2xl border border-border bg-white p-5 shadow-card sm:p-6 ${className}`}>{children}</section>;
+}
+
+export function DataTable({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-card">
+      <div className="overflow-x-auto">
+        <table className={`eza-table w-full text-left text-sm ${className}`}>{children}</table>
+      </div>
+    </div>
+  );
+}
+
+export function TableLabel({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <span className={`eza-table-label ${className}`}>{children}</span>;
 }
 
 export function StatusPill({ status }: { status: "planned" | "active" | "completed" | "overdue" }) {

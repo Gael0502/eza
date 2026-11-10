@@ -4,11 +4,13 @@ import { FarmFilter, useFarmSelection } from "../filters";
 import {
   Button,
   ConfirmDialog,
+  DataTable,
   EmptyState,
   Modal,
   PageHeader,
   SampleBadge,
   SelectField,
+  TableLabel,
   TextField,
 } from "../components";
 import { INPUT_TYPES, INPUT_UNITS, farmById, formatDate, formatNumber, seasonById, uid } from "../model";
@@ -169,49 +171,47 @@ export function InputsPage() {
           body="Choose another farm or input type to see the history."
         />
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-white/80 bg-white/60 shadow-card backdrop-blur-lg">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[860px] text-left text-sm">
-              <thead className="bg-mist text-xs uppercase tracking-wide text-slate-500">
+        <DataTable className="min-w-[860px]">
+              <thead>
                 <tr>
                   <th className="px-4 py-3 font-semibold">Date</th>
                   <th className="px-4 py-3 font-semibold">Farm</th>
                   <th className="px-4 py-3 font-semibold">Type</th>
                   <th className="px-4 py-3 font-semibold">Product</th>
-                  <th className="px-4 py-3 font-semibold">Quantity</th>
+                  <th className="px-4 py-3 text-right font-semibold">Quantity</th>
                   <th className="px-4 py-3 font-semibold">Supplier</th>
                   <th className="px-4 py-3 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody>
                 {records.map((input) => {
                   const farm = farmById(data, input.farmId);
                   const season = seasonById(data, input.seasonId);
                   return (
                     <tr key={input.id}>
-                      <td className="px-4 py-3 text-slate-700">{formatDate(input.applicationDate)}</td>
+                      <td className="px-4 py-3"><TableLabel>{formatDate(input.applicationDate)}</TableLabel></td>
                       <td className="px-4 py-3">
-                        <div className="font-medium text-forest-900">{farm?.name ?? "Unknown farm"}</div>
-                        <div className="text-xs text-slate-500">{season ? season.name : "Not linked to a season"}</div>
+                        <div><TableLabel className="eza-table-label--strong">{farm?.name ?? "Unknown farm"}</TableLabel></div>
+                        <div className="mt-1"><TableLabel>{season ? season.name : "Not linked to a season"}</TableLabel></div>
                       </td>
                       <td className="px-4 py-3 text-slate-700">
                         <div className="flex items-center gap-2">
-                          {input.type}
+                          <TableLabel className="eza-table-label--strong">{input.type}</TableLabel>
                           {input.sample ? <SampleBadge /> : null}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-slate-700">{input.product}</td>
-                      <td className="px-4 py-3 text-slate-700">
-                        {formatNumber(input.quantity, Number.isInteger(input.quantity) ? 0 : 1)} {input.unit}
+                      <td className="px-4 py-3"><TableLabel>{input.product}</TableLabel></td>
+                      <td className="px-4 py-3 text-right tabular-nums text-slate-700">
+                        <TableLabel>{formatNumber(input.quantity, Number.isInteger(input.quantity) ? 0 : 1)} {input.unit}</TableLabel>
                       </td>
-                      <td className="px-4 py-3 text-slate-700">{input.supplier}</td>
+                      <td className="px-4 py-3"><TableLabel>{input.supplier || "—"}</TableLabel></td>
                       <td className="px-4 py-3">
-                        <div className="flex gap-1">
-                          <Button variant="ghost" onClick={() => openEdit(input)}>
+                        <div className="flex w-max items-center gap-2">
+                          <Button variant="secondary" className="min-h-9 px-3 text-xs" onClick={() => openEdit(input)}>
                             <Pencil className="h-4 w-4" />
                             Edit
                           </Button>
-                          <Button variant="ghost" onClick={() => setPendingDelete(input)}>
+                          <Button variant="danger" className="min-h-9 px-3 text-xs" onClick={() => setPendingDelete(input)}>
                             <Trash2 className="h-4 w-4" />
                             Delete
                           </Button>
@@ -221,9 +221,7 @@ export function InputsPage() {
                   );
                 })}
               </tbody>
-            </table>
-          </div>
-        </div>
+        </DataTable>
       )}
 
       <Modal

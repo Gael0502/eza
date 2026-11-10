@@ -45,7 +45,7 @@ export function CompetitiveIntelligence({ role }: { role: FinancialRole }) {
         </p>
       </div>
 
-      <div className="rounded-xl border border-white/80 bg-white/70 px-4 py-3 text-sm leading-6 text-slate-700 shadow-sm backdrop-blur-lg">
+      <div className="rounded-xl border border-border bg-white px-4 py-3 text-sm leading-6 text-slate-700 shadow-sm">
         <span className="font-semibold text-forest-900">Data sources</span> Supply and demand totals
         come from farmer listings and buyer requests recorded in this workspace. Prices are
         farmer-proposed; no live price or external demand feeds are included.

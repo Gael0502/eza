@@ -1,14 +1,16 @@
-import { Pencil, Plus, Sprout, Trash2 } from "lucide-react";
+import { Eye, Pencil, Plus, Sprout, Trash2 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNav } from "../nav";
 import {
   Button,
   ConfirmDialog,
+  DataTable,
   EmptyState,
   Modal,
   PageHeader,
   SampleBadge,
   SelectField,
+  TableLabel,
   TextField,
 } from "../components";
 import { CROPS, DISTRICTS, formatNumber, todayISO, uid } from "../model";
@@ -148,49 +150,63 @@ export function FarmsPage() {
           body="Try another name, district, or crop."
         />
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-white/80 bg-white/60 shadow-card backdrop-blur-lg">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[720px] text-left text-sm">
-              <thead className="bg-mist text-xs uppercase tracking-wide text-slate-500">
+        <DataTable className="min-w-[980px]">
+              <thead>
                 <tr>
                   <th className="px-4 py-3 font-semibold">Farm</th>
                   <th className="px-4 py-3 font-semibold">Location</th>
-                  <th className="px-4 py-3 font-semibold">Size</th>
+                  <th className="px-4 py-3 text-right font-semibold">Size</th>
                   <th className="px-4 py-3 font-semibold">Crop</th>
                   <th className="px-4 py-3 font-semibold">Linked records</th>
-                  <th className="px-4 py-3 font-semibold">Actions</th>
+                  <th className="min-w-[280px] px-4 py-3 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody>
                 {farms.map((farm) => {
                   const seasons = data.seasons.filter((season) => season.farmId === farm.id).length;
                   const inputs = data.inputs.filter((input) => input.farmId === farm.id).length;
                   const harvests = data.harvests.filter((harvest) => harvest.farmId === farm.id).length;
                   return (
-                    <tr key={farm.id} className="align-top">
+                    <tr key={farm.id}>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-forest-900">{farm.name}</span>
+                          <TableLabel className="eza-table-label--strong">{farm.name}</TableLabel>
                           {farm.sample ? <SampleBadge /> : null}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-slate-700">{farm.location}</td>
-                      <td className="px-4 py-3 text-slate-700">{formatNumber(farm.sizeHa, Number.isInteger(farm.sizeHa) ? 0 : 1)} ha</td>
-                      <td className="px-4 py-3 text-slate-700">{farm.crop}</td>
+                      <td className="px-4 py-3"><TableLabel>{farm.location}</TableLabel></td>
+                      <td className="px-4 py-3 text-right tabular-nums"><TableLabel>{formatNumber(farm.sizeHa, Number.isInteger(farm.sizeHa) ? 0 : 1)} ha</TableLabel></td>
+                      <td className="px-4 py-3"><TableLabel>{farm.crop}</TableLabel></td>
                       <td className="px-4 py-3 text-slate-600">
-                        {seasons} season{seasons === 1 ? "" : "s"} · {inputs} input{inputs === 1 ? "" : "s"} · {harvests} harvest{harvests === 1 ? "" : "s"}
+                        <TableLabel>
+                          {seasons} season{seasons === 1 ? "" : "s"} · {inputs} input{inputs === 1 ? "" : "s"} · {harvests} harvest{harvests === 1 ? "" : "s"}
+                        </TableLabel>
                       </td>
-                      <td className="px-4 py-3">
-                        <div className="flex flex-wrap gap-1">
-                          <Button variant="ghost" onClick={() => setViewing(farm)}>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <div className="flex w-max items-center gap-2">
+                          <Button
+                            variant="secondary"
+                            className="min-h-9 gap-1.5 rounded-lg border-forest-200 px-3 text-xs hover:border-forest-400 hover:bg-white"
+                            onClick={() => setViewing(farm)}
+                          >
+                            <Eye className="h-3.5 w-3.5" />
                             View
                           </Button>
-                          <Button variant="ghost" onClick={() => openEdit(farm)} aria-label={`Edit ${farm.name}`}>
-                            <Pencil className="h-4 w-4" />
+                          <Button
+                            className="min-h-9 gap-1.5 rounded-lg bg-forest-700 px-3 text-xs shadow-none hover:bg-forest-800"
+                            onClick={() => openEdit(farm)}
+                            aria-label={`Edit ${farm.name}`}
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
                             Edit
                           </Button>
-                          <Button variant="ghost" onClick={() => setPendingDelete(farm)} aria-label={`Delete ${farm.name}`}>
-                            <Trash2 className="h-4 w-4" />
+                          <Button
+                            variant="danger"
+                            className="min-h-9 gap-1.5 rounded-lg px-3 text-xs shadow-none"
+                            onClick={() => setPendingDelete(farm)}
+                            aria-label={`Delete ${farm.name}`}
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
                             Delete
                           </Button>
                         </div>
@@ -199,9 +215,7 @@ export function FarmsPage() {
                   );
                 })}
               </tbody>
-            </table>
-          </div>
-        </div>
+        </DataTable>
       )}
 
       <Modal

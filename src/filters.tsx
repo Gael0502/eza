@@ -12,11 +12,11 @@ export function FarmFilter({
   const { data } = useStore();
   return (
     <label className="block min-w-[220px]">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Farm</span>
+      <span className="mb-1.5 block text-xs font-semibold text-forest-800">Farm</span>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm"
+        className="min-h-11 w-full rounded-lg border border-border bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition focus:border-forest-600 focus:ring-4 focus:ring-fresh-500/10"
       >
         <option value="all">All farms</option>
         {data.farms

@@ -175,7 +175,7 @@ export function MonitoringPage() {
             const farm = farmById(data, observation.farmId);
             const season = seasonById(data, observation.seasonId);
             return (
-              <article key={observation.id} className="overflow-hidden rounded-2xl border border-white/80 bg-white/60 shadow-card backdrop-blur-lg">
+              <article key={observation.id} className="overflow-hidden rounded-2xl border border-border bg-white shadow-card">
                 <button className="block w-full" onClick={() => setPreview(observation)} aria-label="Open photograph">
                   <img src={observation.photoDataUrl} alt="" className="aspect-[4/3] w-full object-cover" />
                 </button>

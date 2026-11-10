@@ -15,7 +15,7 @@ export function IntelligencePage() {
         title="EZA Intelligence"
         description="Timely alerts based on your farm, season, and activity records."
       />
-      <div className="mb-5 rounded-2xl border border-white/80 bg-white/70 px-4 py-3 text-sm leading-6 text-slate-700 shadow-sm backdrop-blur-lg">
+      <div className="mb-5 rounded-2xl border border-border bg-white px-4 py-3 text-sm leading-6 text-slate-700 shadow-sm">
         <p className="font-semibold text-forest-900">Record-based alerts</p>
         <p className="mt-1">
           Alerts use clear rules to highlight upcoming harvests, overdue activities, and missing updates. Yield comparisons use a non-official reference and are not agronomic advice or a prediction.
@@ -38,9 +38,9 @@ export function IntelligencePage() {
         <ul className="space-y-3">
           {insights.map((insight) => {
             const styles = {
-              attention: "border-red-200 bg-white/75 backdrop-blur-lg",
-              warning: "border-amber-200 bg-white/75 backdrop-blur-lg",
-              info: "border-fresh-300 bg-white/75 backdrop-blur-lg",
+              attention: "border-red-200 bg-white",
+              warning: "border-amber-200 bg-white",
+              info: "border-fresh-300 bg-white",
             }[insight.severity];
             const Icon = insight.severity === "info" ? Info : AlertTriangle;
             const iconColor = insight.severity === "info" ? "text-forest-700" : insight.severity === "warning" ? "text-amber-700" : "text-red-700";

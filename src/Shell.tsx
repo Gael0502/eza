@@ -20,7 +20,7 @@ import {
 import type { KeyboardEvent, ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { ConfirmDialog } from "./components";
-import { buildInsights, hasSampleData } from "./model";
+import { buildInsights } from "./model";
 import { useNav } from "./nav";
 import { DashboardPage } from "./pages/Dashboard";
 import { FarmsPage } from "./pages/Farms";
@@ -69,7 +69,6 @@ export function Shell() {
   const [confirm, setConfirm] = useState<"restore" | "clear" | null>(null);
   const [query, setQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  const sample = hasSampleData(data);
   const current = NAV_ITEMS.find((item) => item.id === page) ?? NAV_ITEMS[0];
   const today = new Intl.DateTimeFormat("en-GB", {
     weekday: "long",
@@ -184,9 +183,10 @@ export function Shell() {
               <X className="h-5 w-5" />
             </button>
           </div>
-          <p className="mt-4 max-w-[215px] text-xs leading-5 text-white/55">
-            Empowering Agriculture Through Intelligence.
-          </p>
+          <div className="mt-4 max-w-[215px]">
+            <p className="text-xs font-medium leading-5 text-white/85">Agriculture, intelligently connected.</p>
+            <p className="mt-1 text-[10px] leading-4 text-white/50">Empowering farmers. Connecting finance. Unlocking markets.</p>
+          </div>
         </div>
 
         <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-5" aria-label="Primary">
@@ -247,16 +247,7 @@ export function Shell() {
         </div>
       </aside>
 
-      <div
-        className={`md:pl-[264px] ${page === "dashboard" ? "min-h-[calc(100vh-72px)] bg-sky-200/95" : "min-h-[calc(100vh-72px)]"}`}
-        style={page === "dashboard" ? undefined : {
-          backgroundImage:
-            'linear-gradient(rgba(247, 249, 245, 0.18), rgba(247, 249, 245, 0.18)), url("https://static.wixstatic.com/media/fec29b8bee1944b7820b1207310d8224.jpg/v1/fill/w_980,h_653,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/fec29b8bee1944b7820b1207310d8224.jpg")',
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      >
+      <div className={`md:pl-[264px] ${page === "dashboard" ? "min-h-[calc(100vh-72px)] bg-sky-200/95" : "min-h-[calc(100vh-72px)] bg-mist"}`}>
         <header className="sticky top-0 z-20 border-b border-white/10 bg-forest-900 text-white shadow-sm shadow-forest-950/10 backdrop-blur-xl">
           <div className="flex min-h-[72px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
             <div className="flex min-w-0 items-center gap-3">
@@ -345,17 +336,11 @@ export function Shell() {
           </div>
         </header>
 
-        <main className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-7">
+        <main className={`mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8 ${page === "dashboard" ? "" : "text-ink"}`}>
           {persistError ? (
-            <div className="mb-5 flex gap-3 rounded-xl border border-red-200 bg-white/85 px-4 py-3.5 text-sm text-red-900 shadow-card backdrop-blur-lg">
+            <div className="mb-5 flex gap-3 rounded-xl border border-red-200 bg-white px-4 py-3.5 text-sm text-red-900 shadow-card">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
               <p>{persistError}</p>
-            </div>
-          ) : null}
-          {sample ? (
-            <div className="mb-5 flex items-center gap-2.5 rounded-xl border border-white/80 bg-white/70 px-3.5 py-2.5 text-xs leading-5 text-slate-600 shadow-sm backdrop-blur-lg">
-              <Leaf className="h-4 w-4 shrink-0 text-forest-700" />
-              <p><span className="font-semibold text-forest-900">Example records.</span> Replace these records with your farm data at any time.</p>
             </div>
           ) : null}
           {content}
