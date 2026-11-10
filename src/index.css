@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  background: #f7f9f5;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f7f9f5;
+  color: #17251d;
+  font-family: Inter, "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::placeholder {
+  color: #94a39a;
+}
+
+*:focus-visible {
+  outline: 2px solid #52b788;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: #d8f3dc;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f9f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid #f7f9f5;
+  border-radius: 999px;
+  background: #c4d2c9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #95a99b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .eza-card {
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .eza-card:hover {
+    border-color: rgb(203 213 225 / 0.9);
+    box-shadow:
+      0 2px 5px rgb(20 34 28 / 0.035),
+      0 14px 34px rgb(20 34 28 / 0.045);
+  }
+
+  table thead th {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  table tbody tr {
+    transition: background-color 140ms ease;
+  }
+
+  table tbody tr:hover {
+    background-color: #f8fbf9;
+  }
+}
