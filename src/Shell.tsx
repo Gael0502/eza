@@ -345,6 +345,7 @@ export function Shell() {
           ) : null}
           {content}
         </main>
+        <EzaFooter />
       </div>
 
       <ConfirmDialog
@@ -370,5 +371,71 @@ export function Shell() {
         }}
       />
     </div>
+  );
+}
+
+function EzaFooter() {
+  const founders = [
+    { initials: "IK", name: "Ismael Kaleeba", image: "https://www.siliconinstitute.org/images/Kaleeba.jpeg" },
+    { initials: "SK", name: "Santos Karake", image: null },
+  ];
+
+  return (
+    <footer className="bg-[#123D2B] text-white">
+      <div className="mx-auto max-w-[1440px] px-4 pb-5 pt-12 sm:px-6 sm:pt-14 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#91C96B] text-[#123D2B] shadow-lg shadow-black/10">
+                <Leaf className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-xl font-bold tracking-[0.14em]">EZA</p>
+                <p className="mt-0.5 text-xs font-medium text-white/65">Agriculture, intelligently connected.</p>
+              </div>
+            </div>
+            <h2 className="mt-8 text-xs font-bold tracking-[0.2em] text-[#91C96B]">THE EZA VISIONARIES</h2>
+            <p className="mt-3 max-w-lg text-lg font-medium leading-7 text-white sm:text-xl">
+              Built on a vision of a smarter, more connected and financially inclusive agricultural future.
+            </p>
+            <p className="mt-4 max-w-lg text-sm leading-6 text-white/65">
+              Building a future where every farmer has the intelligence, opportunities and connections to thrive.
+            </p>
+          </div>
+
+          <div className="grid content-start gap-3 sm:grid-cols-2">
+            {founders.map((founder) => (
+              <section
+                key={founder.name}
+                className="flex min-h-[112px] items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-5 transition-colors hover:border-[#91C96B]/35 hover:bg-white/[0.09]"
+              >
+                {founder.image ? (
+                  <img
+                    src={founder.image}
+                    alt={founder.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-12 w-12 shrink-0 rounded-full border border-[#91C96B]/40 object-cover object-center"
+                  />
+                ) : (
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#91C96B]/35 bg-[#91C96B]/15 text-sm font-bold tracking-wide text-[#B8E398]">
+                    {founder.initials}
+                  </span>
+                )}
+                <div>
+                  <h3 className="text-base font-semibold leading-6 text-white">{founder.name}</h3>
+                  <p className="mt-1 text-xs font-medium text-[#91C96B]">Co-Founder</p>
+                </div>
+              </section>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/15 pt-4 text-xs text-white/50 sm:mt-12 sm:flex-row sm:items-center sm:justify-between">
+          <span>© 2026 EZA. All rights reserved.</span>
+          <span className="font-medium tracking-wide text-white/65">Agriculture, intelligently connected.</span>
+        </div>
+      </div>
+    </footer>
   );
 }
