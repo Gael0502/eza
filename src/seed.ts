@@ -1,26 +1,14 @@
 import type { EzaData } from "./types";
 import { EMPTY_FINANCIAL_DATA } from "./finance-model";
-
-function samplePhoto(title: string, subtitle: string, from: string, to: string): string {
-  const svg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="${from}"/>
-      <stop offset="1" stop-color="${to}"/>
-    </linearGradient>
-  </defs>
-  <rect width="960" height="640" fill="url(#g)"/>
-  <circle cx="760" cy="120" r="70" fill="#ffffff" fill-opacity="0.18"/>
-  <path d="M0 470 C180 420 280 520 460 470 C640 420 760 500 960 450 L960 640 L0 640 Z" fill="#0e241c" fill-opacity="0.28"/>
-  <path d="M120 470 C150 360 190 330 210 470" fill="none" stroke="#d8f3dc" stroke-width="8"/>
-  <path d="M210 470 C230 390 270 350 300 470" fill="none" stroke="#d8f3dc" stroke-width="8"/>
-  <text x="64" y="250" fill="#ffffff" font-family="Segoe UI, sans-serif" font-size="42" font-weight="700">${title}</text>
-  <text x="64" y="304" fill="#d8f3dc" font-family="Segoe UI, sans-serif" font-size="24">${subtitle}</text>
-  <text x="64" y="560" fill="#ffffff" font-family="Segoe UI, sans-serif" font-size="18">Illustrative crop image</text>
-</svg>`;
-  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
-}
+import kivuCoffeePhoto from "./assets/kivu-coffee.jpg";
+import gakenkeTeaPhoto from "./assets/gakenke-tea.jpg";
+import huyeRicePhoto from "./assets/huye-rice.jpg";
+import ingaboMaizePhoto from "./assets/ingabo-maize.jpg";
+import muhangaBananaPhoto from "./assets/muhanga-banana.webp";
+import rubavuVegetablesPhoto from "./assets/rubavu-vegetables.jpg";
+import rwamaganaMaizePhoto from "./assets/rwamagana-maize.jpg";
+import umucyoBlockBHillingPhoto from "./assets/umucyo-block-b-hilling.jpg";
+import umucyoPotatoesPhoto from "./assets/umucyo-potatoes.jpg";
 
 export function createSeedData(): EzaData {
   return {
@@ -359,8 +347,8 @@ export function createSeedData(): EzaData {
         date: "2026-11-02",
         notes:
           "Canopy is even across block A. Tubers are forming and no late blight was seen on the upper slope.",
-        photoName: "sample-umucyo.svg",
-        photoDataUrl: samplePhoto("Umucyo Cooperative", "Irish potato · Musanze · 2 Nov 2026", "#1B4332", "#40916C"),
+        photoName: "umucyo-potatoes.jpg",
+        photoDataUrl: umucyoPotatoesPhoto,
         sample: true,
       },
       {
@@ -369,8 +357,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-umucyo",
         date: "2026-10-18",
         notes: "Hilling finished on block B. Soil moisture was adequate after the mid-October rain.",
-        photoName: "sample-umucyo-hilling.svg",
-        photoDataUrl: samplePhoto("Block B hilling", "Umucyo Cooperative · 18 Oct 2026", "#245C45", "#74C69D"),
+        photoName: "umucyo-block-b-hilling.jpg",
+        photoDataUrl: umucyoBlockBHillingPhoto,
         sample: true,
       },
       {
@@ -379,8 +367,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-ingabo",
         date: "2026-09-22",
         notes: "Maize is about knee height. Some striga was noted along the eastern edge of the field.",
-        photoName: "sample-ingabo.svg",
-        photoDataUrl: samplePhoto("Ingabo Family Farm", "Maize · Nyagatare · 22 Sep 2026", "#3F6212", "#84CC16"),
+        photoName: "ingabo-maize.jpg",
+        photoDataUrl: ingaboMaizePhoto,
         sample: true,
       },
       {
@@ -389,8 +377,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-kivu",
         date: "2026-11-01",
         notes: "Cherries are turning red on the lower slope. Selective picking can start next week.",
-        photoName: "sample-kivu.svg",
-        photoDataUrl: samplePhoto("Kivu Coffee Growers", "Coffee · Rusizi · 1 Nov 2026", "#7F1D1D", "#1B4332"),
+        photoName: "kivu-coffee.jpg",
+        photoDataUrl: kivuCoffeePhoto,
         sample: true,
       },
       {
@@ -399,8 +387,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-huye",
         date: "2026-11-06",
         notes: "Rice is at grain filling. Water level is being held in plots 3 to 7.",
-        photoName: "sample-huye.svg",
-        photoDataUrl: samplePhoto("Huye Rice Scheme", "Rice · grain filling · 6 Nov 2026", "#14532D", "#67E8F9"),
+        photoName: "huye-rice.jpg",
+        photoDataUrl: huyeRicePhoto,
         sample: true,
       },
       {
@@ -409,8 +397,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-muhanga",
         date: "2026-10-20",
         notes: "Bunches are mature. The harvest crew is booked for the last week of October.",
-        photoName: "sample-muhanga.svg",
-        photoDataUrl: samplePhoto("Muhanga Banana Grove", "Banana · 20 Oct 2026", "#365314", "#FACC15"),
+        photoName: "muhanga-banana.webp",
+        photoDataUrl: muhangaBananaPhoto,
         sample: true,
       },
       {
@@ -419,8 +407,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-gakenke",
         date: "2026-09-01",
         notes: "The plucking round was delayed by heavy rain. Records have not been updated since.",
-        photoName: "sample-gakenke.svg",
-        photoDataUrl: samplePhoto("Gakenke Tea Estate", "Tea · 1 Sep 2026", "#064E3B", "#6EE7B7"),
+        photoName: "gakenke-tea.jpg",
+        photoDataUrl: gakenkeTeaPhoto,
         sample: true,
       },
       {
@@ -429,8 +417,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-rwamagana",
         date: "2026-10-01",
         notes: "Cobs are smaller than last season after a dry September. Harvest is still planned.",
-        photoName: "sample-rwamagana.svg",
-        photoDataUrl: samplePhoto("Rwamagana Maize Field", "Maize · 1 Oct 2026", "#713F12", "#FDE68A"),
+        photoName: "rwamagana-maize.jpg",
+        photoDataUrl: rwamaganaMaizePhoto,
         sample: true,
       },
       {
@@ -439,8 +427,8 @@ export function createSeedData(): EzaData {
         seasonId: "s-rubavu",
         date: "2026-11-08",
         notes: "Cabbage heads are forming. Onion beds are weeded and evenly watered.",
-        photoName: "sample-rubavu.svg",
-        photoDataUrl: samplePhoto("Rubavu Vegetable Garden", "Vegetables · 8 Nov 2026", "#14532D", "#86EFAC"),
+        photoName: "rubavu-vegetables.jpg",
+        photoDataUrl: rubavuVegetablesPhoto,
         sample: true,
       },
     ],

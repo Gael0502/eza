@@ -16,6 +16,17 @@ import { EMPTY_FINANCIAL_DATA } from "./finance-model";
 import { createSeedData, EMPTY_DATA } from "./seed";
 
 const STORAGE_KEY = "eza.v1";
+const LEGACY_SAMPLE_PHOTOS: Record<string, string[]> = {
+  o1: ["sample-umucyo.svg"],
+  o2: ["sample-umucyo-hilling.svg"],
+  o3: ["sample-ingabo.svg"],
+  o4: ["sample-kivu.svg", "sample-kivu.jpg"],
+  o5: ["sample-huye.svg"],
+  o6: ["sample-muhanga.svg"],
+  o7: ["sample-gakenke.svg"],
+  o8: ["sample-rwamagana.svg"],
+  o9: ["sample-rubavu.svg"],
+};
 
 function loadData(): EzaData {
   try {
@@ -23,7 +34,11 @@ function loadData(): EzaData {
     if (!raw) return createSeedData();
     const parsed = JSON.parse(raw) as Partial<EzaData>;
     if (!parsed || !Array.isArray(parsed.farms)) return createSeedData();
-    const sampleFinancial = createSeedData().financial ?? EMPTY_FINANCIAL_DATA;
+    const sampleData = createSeedData();
+    const sampleObservations = new Map(
+      sampleData.observations.map((observation) => [observation.id, observation]),
+    );
+    const sampleFinancial = sampleData.financial ?? EMPTY_FINANCIAL_DATA;
     const financial = parsed.financial
       ? {
           ...EMPTY_FINANCIAL_DATA,
@@ -67,7 +82,22 @@ function loadData(): EzaData {
       farms: parsed.farms ?? [],
       seasons: parsed.seasons ?? [],
       inputs: parsed.inputs ?? [],
-      observations: parsed.observations ?? [],
+      observations: (parsed.observations ?? []).map((observation) => {
+        const sampleObservation = sampleObservations.get(observation.id);
+        const legacyPhotoNames = LEGACY_SAMPLE_PHOTOS[observation.id];
+        if (
+          !observation.sample ||
+          !sampleObservation ||
+          !legacyPhotoNames?.includes(observation.photoName)
+        ) {
+          return observation;
+        }
+        return {
+          ...observation,
+          photoName: sampleObservation.photoName,
+          photoDataUrl: sampleObservation.photoDataUrl,
+        };
+      }),
       harvests: parsed.harvests ?? [],
       financial,
     };

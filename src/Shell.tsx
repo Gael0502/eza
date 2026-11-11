@@ -22,6 +22,7 @@ import { useMemo, useState } from "react";
 import { ConfirmDialog } from "./components";
 import { buildInsights } from "./model";
 import { useNav } from "./nav";
+import santosPortrait from "./assets/santos-karake.png";
 import { DashboardPage } from "./pages/Dashboard";
 import { FarmsPage } from "./pages/Farms";
 import { FinancialServicesPage } from "./pages/FinancialServices";
@@ -377,7 +378,7 @@ export function Shell() {
 function EzaFooter() {
   const founders = [
     { initials: "IK", name: "Ismael Kaleeba", image: "https://www.siliconinstitute.org/images/Kaleeba.jpeg" },
-    { initials: "SK", name: "Santos Karake", image: null },
+    { initials: "SK", name: "Santos Karake", image: santosPortrait },
   ];
 
   return (
